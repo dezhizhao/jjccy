@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+
+<html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" postcategories="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f1f1f1;
+            padding: 20px;
+            font-family: Arial;
+        }
+
+        /* Center website */
+        .main {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            font-size: 50px;
+            word-break: break-all;
+        }
+
+        .posts {
+            display: grid;
+            grid-gap: 1.5rem;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Add padding BETWEEN each post */
+        .posts,
+        .posts>.post {
+            padding: 8px;
+        }
+
+        /* Create three equal columns that floats next to each other */
+        .post {
+            background: #fafafa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            display: none;
+            /* Hide all elements by default */
+        }
+
+        /* Clear floats after rows */
+        .posts:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Content */
+        .postcategories {
+            background-color: white;
+            padding: 10px;
+        }
+
+        /* The "show" class is added to the filtered elements */
+        .show {
+            display: block;
+        }
+
+        /* Style the buttons */
+        .btn {
+            border: none;
+            outline: none;
+            padding: 12px 16px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #ddd;
+        }
+
+        .btn.active {
+            background-color: #666;
+            color: white;
+        }
+
+        .post .postcategories a {
+            text-decoration: none;
+            color: inherit;
+            padding: 0.2rem 0.5rem;
+            border-radius: 1rem;
+            border: 1px solid;
+            line-height: normal;
+            transition: all 0.1s;
+        }
+
+        .post .postcategories a:hover {
+            background: var(--green);
+            color: var(--white);
+        }
+
+        /* MQ
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+        @media screen and (max-width: 900px) {
+            .posts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 650px) {
+            html {
+                font-size: 14px;
+            }
+
+            .posts {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+        select {
+            padding: 15px 20px;
+            border: none;
+            border-bottom: 1px solid #e4e4e4;
+            font-size: 1rem;
+            outline: 0;
+        }
+        
+.arrowtoggle {
+  width: 25px;
+  height: 25px;
+  background: red;
+  position: relative;
+  text-align: right;
+  padding-right: 5%;
+  color: #F0F0F0;
+}
+
+.arrowtoggle.active {
+  background: blue;
+}
+
+.arrowtoggle:before, .arrowtoggle:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 5px;
+  background: white;
+  position: absolute;
+  top: 10px;
+  transition: transform .5s;
+}
+
+.arrowtoggle:before {
+  right: 11px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transform: rotate(45deg);
+}
+
+.arrowtoggle:after {
+  right: 5px;
+  transform: rotate(-45deg);
+}
+
+.arrowtoggle.active:before {
+  transform: rotate(-45deg);
+}
+
+.arrowtoggle.active:after {
+  transform: rotate(45deg);
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- MAIN (Center website) -->
+    <div class="main">
+
+        <h1>snaie.COM</h1>
+        <hr>
+
+        <h2>PORTFOLIO</h2>
+        <select id="my-select">
+            <option value="" disabled selected>Tags</option>
+            <option value="all">all</option>
+            <option value="people">people</option>
+            <option value="Cars">Cars</option>
+            <option value="nature">nature</option>
+            <option value="bread">bread</option>
+           
+          
+          </select>
+          
+          <p id="option-selected"></p>
+        <div id="myBtnContainer">
+
+            <button data-sort='symbol' class="btn arrowtoggle" >
+                symbol
+              </button>
+            
+                <button data-sort='number' class="btn arrowtoggle" >
+                number
+              </button>
+              
+             <button data-sort='weight' class="btn arrowtoggle">
+                weight
+              </button>
+              <button data-sort="h4" class="btn arrowtoggle">
+                Title
+              </button>
+
+
+            <!-- Portfolio Gallery Grid -->
+            <div class="posts">
+                <div class="post nature">
+                    <div class="postcategories">
+                        <button class="btn" onclick="filterSelection('nature')"> Nature</button>
+                        <h4>Mountains</h4>
+                        <p> var btnContainer = document.getElementById("myBtnContainer");
+                            var btns = btnContainer.getElementsByClassName("btn");
+                        </p>
+                        <p class="number">41</p>
+                        <p class="weight">18</p>
+                    </div>
+                </div>
+                <div class="post nature">
+                    <div class="postcategories">
+                        <img src="/w3images/lights.jpg" alt="Lights" style="width:100%">
+                        <h4>Lights</h4>
+                        <p> filterSelection("all")"..</p>
+                        <p class="number">201</p>
+                        <p class="weight">40.028</p>
+                    </div>
+                </div>
+                <div class="post nature">
+
+                    <div class="postcategories">
+                        <img src="/w3images/nature.jpg" alt="Nature" style="width:100%">
+                        <h4>Forest</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <p class="number">21</p>
+                        <p class="weight">40.28</p>
+                    </div>
+                </div>
+
+                <div class="post cars nature">
+                    <div class="postcategories">
+                        <p><a class="zzf" href="#">cars</a> <a class="zzf" href="#">nature</a></p>
+
+                        <h4>Retro</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <p class="number">211</p>
+                        <p class="weight">4.028</p>
+                    </div>
+                </div>
+                <div class="post cars">
+                    <div class="postcategories">
+                        <img src="/w3images/cars2.jpg" alt="Car" style="width:100%">
+                        <h4>Fast</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <p class="number">205</p>
+                        <p class="weight">428</p>
+                    </div>
+                </div>
+                <div class="post cars">
+                    <div class="postcategories">
+                        <p><a class="zzf" href="#">cars</a></p>
+                        <h4>Classic</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <p class="number">301</p>
+                        <p class="weight">28</p>
+                    </div>
+                </div>
+
+                <div class="post people">
+                    <div class="postcategories">
+                        <p><a class="zzf" href="#">people</a></p>
+                        <h4>Girl</h4>
+                        <p> Girl base href=..</p>
+                        <p class="number">33</p>
+                        <p class="weight">46.028</p>
+                    </div>
+                </div>
+                <div class="post people">
+                    <div class="postcategories">
+                        <p><a class="zzf" href="#">people</a></p>
+                        <h4>Man</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <p class="number">77</p>
+                        <p class="weight">28</p>
+                    </div>
+                </div>
+                <div class="post people cars ">
+                    <div class="postcategories">
+                        <a class="zzf" href="#">people</a>
+                        <a class="zzf" href="#">cars</a>
+                        <h4>h4 titl</h4>
+                        <p>Woman.cars.</p>
+                        <p class="number">2901</p>
+                        <p class="weight">58</p>
+                    </div>
+                </div>
+                <div class="post bread nature">
+                    <div class="postcategories">
+                        w3images
+                        <h4>Zz Retro</h4>
+                        <p>Lorem ipsum dolor..</p>
+                        <a class="zzf" href="#">bread</a>
+                        <a class="zzf" href="#">nature</a>
+                        <p class="number">99</p>
+                        <p class="weight">78</p>
+                    </div>
+                </div>
+                <!-- END GRID -->
+            </div>
+
+            <!-- END MAIN -->
+        </div>
+
+        <script>
+
+
+            let links = document.querySelectorAll(".post a");
+            if (links != null) links.forEach(link => {
+                link.addEventListener("click", getTarget);
+
+
+            });
+
+
+
+
+            function getTarget(e) {
+
+                let tags = e.target.innerHTML;
+                filterSelection(tags);
+            }
+
+            function filterSelection(c) {
+                var x, i;
+                x = document.getElementsByClassName("post");
+                if (c == "all") c = "";
+                for (i = 0; i < x.length; i++) {
+                    dezhiRemoveClass(x[i], "show");
+                    if (x[i].className.indexOf(c) > -1) dezhiAddClass(x[i], "show");
+                }
+            }
+
+            function dezhiAddClass(element, name) {
+                var i, arr1, arr2;
+                arr1 = element.className.split(" ");
+                arr2 = name.split(" ");
+                for (i = 0; i < arr2.length; i++) {
+                    if (arr1.indexOf(arr2[i]) == -1) { element.className += " " + arr2[i]; }
+                }
+            }
+
+            function dezhiRemoveClass(element, name) {
+                var i, arr1, arr2;
+                arr1 = element.className.split(" ");
+                arr2 = name.split(" ");
+                for (i = 0; i < arr2.length; i++) {
+                    while (arr1.indexOf(arr2[i]) > -1) {
+                        arr1.splice(arr1.indexOf(arr2[i]), 1);
+                    }
+                }
+                element.className = arr1.join(" ");
+            }
+
+
+            // Add active class to the current button (highlight it)
+            filterSelection("all");
+
+            let select = document.getElementById("my-select");
+               
+
+            select.addEventListener('change', function () {
+                filterSelection(this.value);
+            });    
+        </script>
+
+<script>
+    let btns = document.querySelectorAll('.arrowtoggle');
+    let  sel='.posts', order ='desc', elem=".weight";
+    
+ 
+ btns.forEach(function (btn) {
+   btn.addEventListener('click', function() {
+     btn.classList.toggle('active');
+    let sort = btn.getAttribute('data-sort');
+    if(sort.trim()==='h4') {
+        elem=sort.trim();
+        
+     }
+     //else elem="."+btn.textContent.trim();
+     else elem="."+sort.trim();
+     if( order === 'desc') {
+       order= "asc";
+        
+     } else {
+       order= "desc";
+        
+     }
+    // alert(" elem="+elem);
+     sortBy(sel, elem, order);
+   });
+  
+  
+ });
+ 
+  
+   function sortBy(sel, elem, order) {
+     var parent = document.querySelector(sel);
+    
+ var indexesArray = Array.from(parent.children);
+ 
+ 
+ 
+ 
+     indexesArray.sort(function(a, b) {
+       let an=a.querySelector(elem).textContent.trim().toUpperCase();
+         let bn=b.querySelector(elem).textContent.trim().toUpperCase();
+       if (isNumeric(an)) {
+     an = parseFloat(an);
+     }
+        if (isNumeric(bn)) {
+         bn = parseFloat(bn);}
+     
+ 
+ 
+     if (order == 'asc') {
+     
+       if (an > bn)
+         return 1;
+       if (an < bn)
+         return -1;
+ 
+     } else if (order == 'desc') {
+      
+       if (an < bn)
+         return 1;
+       if (an > bn)
+         return -1;
+     }
+     return 0;
+   });
+ 
+   indexesArray.forEach((e) =>
+   parent.appendChild(e)
+             );
+             
+ }
+ function isNumeric(num){
+   return !isNaN(num)
+ }
+ 
+ </script>
+ 
+   
+ 
+ 
+ 
