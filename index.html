@@ -11,6 +11,45 @@
     <span class="Toast-content">We are moving </span>
   </div>
     <script>
-        // Your JavaScript code
-        alert("Hello from JavaScript!");
+
+fetch('https://feedtoday.com/wp-json/wp/v2/yvideo')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Create a table
+    const table = document.createElement('table');
+    table.border = '1';
+
+    // Add table header
+    const headerRow = table.insertRow();
+    const titleHeader = headerRow.insertCell(0);
+    const languageHeader = headerRow.insertCell(1);
+    titleHeader.innerHTML = '<b>Video Title</b>';
+    languageHeader.innerHTML = '<b>Language</b>';
+
+    // Loop through each item and add a row to the table
+    data.forEach(item => {
+      const videoTitle = item.title.rendered;
+      const videoLink = item.link;
+      const language = item.language[0]; // Assuming 'language' is an array
+
+      const row = table.insertRow();
+      const titleCell = row.insertCell(0);
+      const languageCell = row.insertCell(1);
+
+      titleCell.innerHTML = `<a href="${videoLink}" target="_blank">${videoTitle}</a>`;
+      languageCell.innerHTML = language;
+    });
+
+    // Append the table to the document body
+    document.body.appendChild(table);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
     </script>
