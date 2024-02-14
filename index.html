@@ -12,15 +12,33 @@
   </div>
     <script>
 
-fetch('https://feedtoday.com/wp-json/wp/v2/yvideo')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    // Create a table
+const apiUrl = 'https://feedtoday.com/wp-json/wp/v2/yvideo';
+
+function fetchAllPages(url) {
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      const nextPage = data?.length ? data[data.length - 1]._links.next : null;
+
+      if (nextPage) {
+        return fetchAllPages(nextPage);
+      }
+
+      return data;
+    });
+}
+
+fetchAllPages(apiUrl)
+  .then(allData => {
+    // Process all data here
+    console.log(allData);
+
+    // Create and populate the table as before
     const table = document.createElement('table');
     table.border = '1';
 
@@ -32,7 +50,7 @@ fetch('https://feedtoday.com/wp-json/wp/v2/yvideo')
     languageHeader.innerHTML = '<b>Language</b>';
 
     // Loop through each item and add a row to the table
-    data.forEach(item => {
+    allData.forEach(item => {
       const videoTitle = item.title.rendered;
       const videoLink = item.link;
       const language = item.language[0]; // Assuming 'language' is an array
