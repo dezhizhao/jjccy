@@ -10,63 +10,21 @@
     </span>
   </div>
 
-<div id="customFieldDataDisplay"></div>
+
+<div id="customFieldDataDisplay">zzf</div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const apiUrl = 'https://feedtoday.com/yvideo/';
+function fetchData() {
+    const script = document.createElement('script');
+    script.src = 'https://feedtoday.com/yvideo/?callback=handleData';
+    document.head.appendChild(script);
+}
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Display custom field data on the webpage
-            displayCustomFieldData(data.data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+function handleData(data) {
+    console.log(data);
+}
 
-    function displayCustomFieldData(customFieldData) {
-        const displayContainer = document.getElementById('customFieldDataDisplay');
-
-        if (customFieldData.length === 0) {
-            displayContainer.innerHTML = '<p>No custom field data available.</p>';
-            return;
-        }
-
-        // Create an HTML table to display the data
-        const table = document.createElement('table');
-        table.border = '1';
-
-        // Add table header
-        const headerRow = table.insertRow();
-        const titleHeader = headerRow.insertCell(0);
-        const youtubeHeader = headerRow.insertCell(1);
-        const regionHeader = headerRow.insertCell(2);
-        titleHeader.innerHTML = '<b>Video Title</b>';
-        youtubeHeader.innerHTML = '<b>YouTube Video</b>';
-        regionHeader.innerHTML = '<b>Channel Region</b>';
-
-        customFieldData.forEach(item => {
-            const row = table.insertRow();
-            const titleCell = row.insertCell(0);
-            const youtubeCell = row.insertCell(1);
-            const regionCell = row.insertCell(2);
-
-            titleCell.innerHTML = item.video_title;
-            youtubeCell.innerHTML = item.youtube_vid;
-            regionCell.innerHTML = item.channel_region;
-        });
-
-        // Append the table to the display container
-        displayContainer.appendChild(table);
-    }
-});
+fetchData();
 </script>
 
 </body>
