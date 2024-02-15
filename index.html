@@ -10,64 +10,68 @@
     </span>
     <span class="Toast-content">We are moving </span>
   </div>
-    <script>
 
-const apiUrl = 'https://feedtoday.com/wp-json/wp/v2/yvideo';
+<div id="customFieldDataDisplay"></div>
 
-function fetchAllPages(url) {
-  return fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
-      const nextPage = data?.length ? data[data.length - 1]._links.next : null;
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Replace with the actual URL of your WordPress site
+    const apiUrl = 'https://feedtoday.com/wp-json/yvideo/v1/custom-api-endpoint/';
 
-      if (nextPage) {
-        return fetchAllPages(nextPage);
-      }
+    // Fetch data from the WordPress API endpoint
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Display custom field data on the webpage
+            displayCustomFieldData(data.data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
-      return data;
-    });
-}
+    function displayCustomFieldData(customFieldData) {
+        const displayContainer = document.getElementById('customFieldDataDisplay');
 
-fetchAllPages(apiUrl)
-  .then(allData => {
-    // Process all data here
-    console.log(allData);
+        if (customFieldData.length === 0) {
+            displayContainer.innerHTML = '<p>No custom field data available.</p>';
+            return;
+        }
 
-    // Create and populate the table as before
-    const table = document.createElement('table');
-    table.border = '1';
+        // Create an HTML table to display the data
+        const table = document.createElement('table');
+        table.border = '1';
 
-    // Add table header
-    const headerRow = table.insertRow();
-    const titleHeader = headerRow.insertCell(0);
-    const languageHeader = headerRow.insertCell(1);
-    titleHeader.innerHTML = '<b>Video Title</b>';
-    languageHeader.innerHTML = '<b>Language</b>';
+        // Add table header
+        const headerRow = table.insertRow();
+        const titleHeader = headerRow.insertCell(0);
+        const youtubeHeader = headerRow.insertCell(1);
+        const regionHeader = headerRow.insertCell(2);
+        titleHeader.innerHTML = '<b>Video Title</b>';
+        youtubeHeader.innerHTML = '<b>YouTube Video</b>';
+        regionHeader.innerHTML = '<b>Channel Region</b>';
 
-    // Loop through each item and add a row to the table
-    allData.forEach(item => {
-      const videoTitle = item.title.rendered;
-      const videoLink = item.link;
-      const language = item.language[0]; // Assuming 'language' is an array
+        // Loop through each custom field data and add a row to the table
+        customFieldData.forEach(item => {
+            const row = table.insertRow();
+            const titleCell = row.insertCell(0);
+            const youtubeCell = row.insertCell(1);
+            const regionCell = row.insertCell(2);
 
-      const row = table.insertRow();
-      const titleCell = row.insertCell(0);
-      const languageCell = row.insertCell(1);
+            titleCell.innerHTML = item.video_title;
+            youtubeCell.innerHTML = item.youtube_vid;
+            regionCell.innerHTML = item.channel_region;
+        });
 
-      titleCell.innerHTML = `<a href="${videoLink}" target="_blank">${videoTitle}</a>`;
-      languageCell.innerHTML = language;
-    });
+        // Append the table to the display container
+        displayContainer.appendChild(table);
+    }
+});
+</script>
 
-    // Append the table to the document body
-    document.body.appendChild(table);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-
-    </script>
+</body>
+</html>
