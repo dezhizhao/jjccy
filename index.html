@@ -8,17 +8,14 @@
         <path fill="#ffffff" d="M16 0 A16 16 0 0 1 32 16 L28 16 A12 12 0 0 0 16 4z"></path>
       </svg>
     </span>
-    <span class="Toast-content">We are moving </span>
   </div>
 
 <div id="customFieldDataDisplay"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Replace with the actual URL of your WordPress site
     const apiUrl = 'https://feedtoday.com/yvideo/';
 
-    // Fetch data from the WordPress API endpoint
     fetch(apiUrl)
         .then(response => {
             if (!response.ok) {
@@ -55,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
         youtubeHeader.innerHTML = '<b>YouTube Video</b>';
         regionHeader.innerHTML = '<b>Channel Region</b>';
 
-        // Loop through each custom field data and add a row to the table
         customFieldData.forEach(item => {
             const row = table.insertRow();
             const titleCell = row.insertCell(0);
